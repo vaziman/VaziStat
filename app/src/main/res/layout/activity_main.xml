@@ -8,12 +8,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".MainActivity"
+>
+    <androidx.fragment.app.FragmentContainerView
 
-android:background="@color/black">
-
-
-
-
-
-
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragmentContainerView2"
+            app:navGraph ="@navigation/main_nav"
+            app:defaultNavHost="true"
+    />
 </androidx.constraintlayout.widget.ConstraintLayout>
