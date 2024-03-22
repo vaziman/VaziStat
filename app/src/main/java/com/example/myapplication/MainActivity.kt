@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -49,17 +50,20 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        var progressBarRunning = bindingClass.progressBarRunning
+        progressBarRunning.max = 50
+        var currentProgress = 44
+        ObjectAnimator.ofInt(progressBarRunning, "progress", currentProgress).start()
 
+        var percentOfKm = currentProgress.toFloat() / progressBarRunning.max.toFloat() * 100
+
+        bindingClass.tvCountOfKM.text = "$currentProgress/${progressBarRunning.max}km"
+        bindingClass.tvCountOfKmPercent.text = "${"%.1f".format(percentOfKm)}%"
     }
 
 
 }
 
-
-//             supportActionBar?.apply {
-//           setDisplayHomeAsUpEnabled(true)
-//            setHomeAsUpIndicator(R.drawable.arrow_back_for_toolbar)
-//        }
 
 
 
