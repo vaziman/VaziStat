@@ -38,11 +38,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)  // activation return button of toolbar
         // setSupportActionBar(findViewById(R.id.toolbarMain))
 
-        replaceFragment(HomeFragment())
+        replaceFragment(HomeFragment()) // set homeFragment on Main screen
 
         bindingClass.bottomNavMenu.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.navigation_home -> replaceFragment(HomeFragment())
+                R.id.navigation_home -> replaceFragment(HomeFragment()) //open homeFragment when click on button
                 R.id.navigation_list -> replaceFragment(ListMoreFragment())
                 else -> {}
             }
@@ -63,15 +63,18 @@ class MainActivity : AppCompatActivity() {
 //                else -> false
 //            }
 //        }
-        var progressBarRunning = bindingClass.progressBarRunning
-        progressBarRunning.max = 50
-        var currentProgress = 44
-        ObjectAnimator.ofInt(progressBarRunning, "progress", currentProgress).start()
 
-        var percentOfKm = currentProgress.toFloat() / progressBarRunning.max.toFloat() * 100
 
-        bindingClass.tvCountOfKM.text = "$currentProgress/${progressBarRunning.max}km"
-        bindingClass.tvCountOfKmPercent.text = "${"%.1f".format(percentOfKm)}%"
+
+//        var progressBarRunning = bindingClass.progressBarRunning
+//        progressBarRunning.max = 50
+//        var currentProgress = 44
+//        ObjectAnimator.ofInt(progressBarRunning, "progress", currentProgress).start()
+//
+//        var percentOfKm = currentProgress.toFloat() / progressBarRunning.max.toFloat() * 100
+//
+//        bindingClass.tvCountOfKM.text = "$currentProgress/${progressBarRunning.max}km"
+//        bindingClass.tvCountOfKmPercent.text = "${"%.1f".format(percentOfKm)}%"
     }
 
     private fun replaceFragment(fragment : Fragment){
