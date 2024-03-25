@@ -6,7 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/orange"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
 
         app:navigationIcon="@drawable/arrow_back_for_toolbar"
 >
