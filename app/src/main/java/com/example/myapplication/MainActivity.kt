@@ -10,11 +10,13 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.myapplication.constance.Constance
 
 import com.example.myapplication.databinding.ActivityMainBinding
+import com.example.myapplication.fragments.HomeFragment
 import com.example.myapplication.fragments.ListMoreFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -36,20 +38,31 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)  // activation return button of toolbar
         // setSupportActionBar(findViewById(R.id.toolbarMain))
 
-        val bottomNavigationMenu = findViewById<BottomNavigationView>(R.id.bottomNavMenu)
-        bottomNavigationMenu.setOnItemSelectedListener { item ->
-            when (item.itemId) {  // set listener on button in bottomMenu
-                R.id.navigation_list -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.CLMain, ListMoreFragment.newInstance()).commit() //open fragment
+        replaceFragment(HomeFragment())
 
-                    true
-                }
-
-                else -> false
+        bindingClass.bottomNavMenu.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.navigation_home -> replaceFragment(HomeFragment())
+                R.id.navigation_list -> replaceFragment(ListMoreFragment())
+                else -> {}
             }
+            true
         }
+
+//        val bottomNavigationMenu = findViewById<BottomNavigationView>(R.id.bottomNavMenu)
+//        bottomNavigationMenu.setOnItemSelectedListener { item ->
+//            when (item.itemId) {  // set listener on button in bottomMenu
+//                R.id.navigation_list -> {
+//                    supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.CLMain, ListMoreFragment.newInstance()).commit() //open fragment
+//
+//                    true
+//                }
+//
+//                else -> false
+//            }
+//        }
         var progressBarRunning = bindingClass.progressBarRunning
         progressBarRunning.max = 50
         var currentProgress = 44
@@ -59,6 +72,13 @@ class MainActivity : AppCompatActivity() {
 
         bindingClass.tvCountOfKM.text = "$currentProgress/${progressBarRunning.max}km"
         bindingClass.tvCountOfKmPercent.text = "${"%.1f".format(percentOfKm)}%"
+    }
+
+    private fun replaceFragment(fragment : Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.main_frame_layout, fragment)
+        fragmentTransaction.commit()
     }
 
 
