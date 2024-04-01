@@ -3,7 +3,7 @@
     <style name="Base.Theme.MyApplication"
            parent="Theme.Material3.DayNight.NoActionBar">
          Customize your light theme here.
-         <item name="colorPrimary">@color/orange</item>
+         <item name="colorPrimary">@color/purple</item>
         <item name="windowActionBar">false</item>
 
         <item name="windowNoTitle">true</item>
