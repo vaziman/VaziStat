@@ -1,24 +1,15 @@
 package com.example.myapplication
 
-import android.animation.ObjectAnimator
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.myapplication.constance.Constance
 
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.fragments.HomeFragment
 import com.example.myapplication.fragments.ListMoreFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {

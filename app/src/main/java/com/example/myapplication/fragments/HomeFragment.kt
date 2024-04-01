@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.myapplication.R
 import com.example.myapplication.adapter.DataAdapter
+import com.example.myapplication.constants.Constants
+import com.example.myapplication.constants.Keys
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.model.DataModel
 import java.util.zip.Inflater
@@ -39,7 +41,7 @@ class HomeFragment : Fragment() {
     private fun init(){
         bindingClass.apply {
             rcViewMainScreen.adapter = adapter
-            val data = DataModel(dataKilometers = "00/00", dataKMPercent = "00/00%")
+            val data = DataModel( progressBar = 50, dataKilometers = "00/00", dataKMPercent = "00/00%")
             adapter.addData(data)
         }
     }
@@ -47,7 +49,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        var progressBarRunning = bindingClass.progressBarRunning
+
+        val urlForGet = "http://www.strava.com/oauth/authorize?client_id=${Keys.STRAVA_CLIENT_ID}&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=read"
+
+
+
+//        var progressBarRunning = bindingClass.rcViewMainScreen
 //        progressBarRunning.max = 50
 //        var currentProgress = 44
 //        ObjectAnimator.ofInt(progressBarRunning, "progress", currentProgress).start()
@@ -57,4 +64,6 @@ class HomeFragment : Fragment() {
 //        bindingClass.tvCountOfKM.text = "$currentProgress/${progressBarRunning.max}km"
 //        bindingClass.tvCountOfKmPercent.text = "${"%.1f".format(percentOfKm)}%"
     }
+
+
 }

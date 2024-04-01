@@ -1,4 +1,6 @@
 package com.example.myapplication.model
 
-data class DataModel(var dataKilometers : String, var dataKMPercent: String) {
+import android.widget.ProgressBar
+
+data class DataModel(var progressBar: Int, var dataKilometers : String , var dataKMPercent: String) {
 }
