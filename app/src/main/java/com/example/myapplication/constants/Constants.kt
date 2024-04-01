@@ -1,6 +1,6 @@
-package com.example.myapplication.constance
+package com.example.myapplication.constants
 
-object Constance {
+object Constants {
     const val SIGN_IN_STATE = "sign_in"
     const val SIGN_UP_STATE = "sign_up"
     const val SIGN_STATE = "sign_state"
@@ -9,4 +9,6 @@ object Constance {
 
     const val LOGIN = "login"
     const val PASSWORD = "password"
+
+
 }
