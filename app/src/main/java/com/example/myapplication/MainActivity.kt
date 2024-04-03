@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-            requestStravaData.getStravaAutorisationCode()
-            requestStravaData.refreshToken()
+             requestStravaData.getStravaAutorisationCode()
+             requestStravaData.refreshToken()
     }
 
     private fun replaceFragment(fragment: Fragment) {

@@ -8,6 +8,7 @@
         android:background="@color/gray"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextColor="@color/white"
 
         app:navigationIcon="@drawable/arrow_back_for_toolbar"
 >
