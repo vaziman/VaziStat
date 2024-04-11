@@ -18,7 +18,8 @@ class HomeFragment : Fragment() {
     private lateinit var bindingClass: FragmentHomeBinding
     private val adapter = DataAdapter()
     private val dataList = listOf(
-        R.id.rc_view_main_screen
+        R.id.rc_view_main_screen,
+
     )
     private var index = 0
 
@@ -43,6 +44,8 @@ class HomeFragment : Fragment() {
             rcViewMainScreen.adapter = adapter
             val data = DataModel( progressBar = 50, dataKilometers = "00/00", dataKMPercent = "00/00%")
             adapter.addData(data)
+
+
         }
     }
 
