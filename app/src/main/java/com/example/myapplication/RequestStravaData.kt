@@ -8,7 +8,7 @@ import com.android.volley.toolbox.Volley
 import com.example.myapplication.constants.Keys
 import org.json.JSONObject
 
-class RequestStravaData(private val context: Context) {
+open class RequestStravaData(private val context: Context) {
 
     fun getStravaAutorisationCode() {
 
@@ -46,17 +46,21 @@ class RequestStravaData(private val context: Context) {
                 val stringResponse = JSONObject(response)
                 val accessToken = stringResponse.getString("access_token")
                 // val accessToken = stringResponse.getJSONObject("access_token")
-                Log.d("MyLog", "Response: $stringResponse")
-                Log.d("MyLog", "Access_token: $accessToken")
+//                Log.d("MyLog", "Response: $stringResponse")
+//                Log.d("MyLog", "Access_token: $accessToken")
                 getActivitiesInfo(accessToken)
+
             },{
-                Log.d("MyLog", "Response: $it")
+//                Log.d("MyLog", "Response it: $it")
             })
+
         queue.add(stringReqest)
+
 
     }
 
      fun getActivitiesInfo(accessToken: String){
+
          val url = "https://www.strava.com/api/v3/athlete/activities?access_token=$accessToken"
          val queue = Volley.newRequestQueue(context)
          val stringRequest = StringRequest(Request.Method.GET, url,
@@ -64,7 +68,7 @@ class RequestStravaData(private val context: Context) {
                  response ->
                  Log.d("MyLog", "Response: $response")
              }, {
-                 Log.d("MyLog", "Response: $it")
+//                 Log.d("MyLog", "Response: $it")
              })
          queue.add(stringRequest)
 

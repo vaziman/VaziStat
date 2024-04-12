@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.cardview.widget.CardView
-        android:id="@+id/CVLastRun"
+        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/CVLastRun"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -12,9 +12,8 @@
 >
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/CLLastRun"
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
 
         <TextView
@@ -22,14 +21,58 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/item_runner"
+                android:layout_marginStart="8dp"
+
         />
 
         <ImageView
-                android:layout_width="100dp"
+                android:id="@+id/item_runner"
+                android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/run"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/TVTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/TVPeace"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="Time:  00:00"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintStart_toStartOf="@id/TVPeace"/>
+
+
+        <TextView
+                android:id="@+id/TVPeace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/TVTime"
+                android:text="Peace: 00:00"
+
+                android:textStyle="bold"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="25dp"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5.99 KM"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/TVTime"
+                android:layout_marginEnd="50dp"
+                android:textSize="30dp"
+                android:textStyle="bold"
         />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

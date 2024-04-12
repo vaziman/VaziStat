@@ -3,7 +3,7 @@ package com.example.myapplication.holders
 import android.animation.ObjectAnimator
 import android.view.View
 import com.example.myapplication.databinding.ModelDataLayoutBinding
-import com.example.myapplication.model.DataModel
+import com.example.myapplication.models.DataModel
 
 class WeeklyProgressDataViewHolder(view: View) : BaseDataViewHolder(view) {
 

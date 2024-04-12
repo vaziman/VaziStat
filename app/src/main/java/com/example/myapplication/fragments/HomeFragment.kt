@@ -1,18 +1,15 @@
 package com.example.myapplication.fragments
 
-import android.animation.ObjectAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.myapplication.R
-import com.example.myapplication.adapter.DataAdapter
-import com.example.myapplication.constants.Constants
+import com.example.myapplication.adapters.DataAdapter
 import com.example.myapplication.constants.Keys
 import com.example.myapplication.databinding.FragmentHomeBinding
-import com.example.myapplication.model.DataModel
-import java.util.zip.Inflater
+import com.example.myapplication.models.DataModel
 
 class HomeFragment : Fragment() {
     private lateinit var bindingClass: FragmentHomeBinding

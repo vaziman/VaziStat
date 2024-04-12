@@ -1,14 +1,13 @@
-package com.example.myapplication.adapter
+package com.example.myapplication.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.holders.BaseDataViewHolder
 import com.example.myapplication.holders.LastRunDataViewHolder
 import com.example.myapplication.holders.WeeklyProgressDataViewHolder
-import com.example.myapplication.model.DataModel
+import com.example.myapplication.models.DataModel
 
 class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
 //    private val dataList = ArrayList<DataModel>()
