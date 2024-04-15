@@ -43,6 +43,7 @@ dependencies {
     implementation("com.android.volley:volley:1.2.1")
     implementation("androidx.privacysandbox.tools:tools-core:1.0.0-alpha08")
     testImplementation("junit:junit:4.13.2")
+//    implementation("com.google.code.gson:gson:2.8.8")
 
 
 

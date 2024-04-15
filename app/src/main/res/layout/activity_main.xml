@@ -34,13 +34,15 @@
                 android:id="@+id/bottomNavMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/orange"
+                android:background="@color/gray"
                 android:layout_gravity="bottom"
                 app:layout_constraintBottom_toBottomOf="parent"
-                style="@style/ThemeOverlay.AppCompat.Dark"
+                style="@style/Theme.MyApplication"
                 app:menu="@menu/bottom_menu"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:itemTextColor="@color/white"
+        >
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
