@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.view.View
 import com.example.myapplication.databinding.ModelDataLayoutBinding
 import com.example.myapplication.models.DataModel
+import com.example.myapplication.models.RunningDataModel
 
 class WeeklyProgressDataViewHolder(view: View) : BaseDataViewHolder(view) {
 
@@ -29,6 +30,8 @@ class WeeklyProgressDataViewHolder(view: View) : BaseDataViewHolder(view) {
         tvCountOfKM.text = "$currentProgress / ${progressBarRunning.max}km"
         tvCountOfKmPercent.text = "%.1f%%".format(percent)
     }
+
+
 
 
 }

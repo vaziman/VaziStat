@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.app.DownloadManager
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,17 +19,18 @@ import com.example.myapplication.constants.Keys
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.fragments.HomeFragment
 import com.example.myapplication.fragments.ListMoreFragment
+import com.example.myapplication.models.RunningDataModel
 import org.json.JSONObject
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IStravaLoader {
     lateinit var bindingClass: ActivityMainBinding
     private var activityResultLauncher: ActivityResultLauncher<Intent>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val requestStravaData = RequestStravaData(this)
+
 
 
         bindingClass = ActivityMainBinding.inflate(layoutInflater)
@@ -50,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
             //  requestStravaData.getStravaAutorisationCode()
-              requestStravaData.refreshToken()
+//              requestStravaData.refreshToken()
 
     }
 
@@ -59,6 +61,14 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.main_frame_layout, fragment)
         fragmentTransaction.commit()
+    }
+
+    override fun onStravaDataReady(data: ArrayList<RunningDataModel>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getCurrentContext(): Context {
+        return applicationContext
     }
 
 }

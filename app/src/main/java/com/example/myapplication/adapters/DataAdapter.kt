@@ -8,6 +8,8 @@ import com.example.myapplication.holders.BaseDataViewHolder
 import com.example.myapplication.holders.LastRunDataViewHolder
 import com.example.myapplication.holders.WeeklyProgressDataViewHolder
 import com.example.myapplication.models.DataModel
+import com.example.myapplication.models.RunningDataModel
+import java.util.ArrayList
 
 class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
 //    private val dataList = ArrayList<DataModel>()
@@ -44,15 +46,6 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
 
     override fun onBindViewHolder(dataViewHolder: BaseDataViewHolder, index: Int) {
         dataViewHolder.bind(myData!!)
-//        val pbItem = dataList[0]
-//        val countOfKm = dataList[1]
-//        val kmPercent = dataList[3]
-//        p0.bind(pbItem)
-//        p0.bind(countOfKm)
-//        p0.bind(kmPercent)
-
-
-
     }
 
 
@@ -61,6 +54,10 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
 //        dataList.add(data)
         myData = data
         notifyDataSetChanged() // refreshing data in RecyclerView list
+    }
+
+    fun setStravaData(data: ArrayList<RunningDataModel>) {
+
     }
 
 }
