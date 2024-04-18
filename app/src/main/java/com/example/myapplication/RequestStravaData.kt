@@ -6,7 +6,9 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.myapplication.models.RunningDataModel
 import com.example.myapplication.constants.Keys
+import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.interfaces.IStravaLoader
+import com.squareup.kotlinpoet.MUTABLE_LIST
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.coroutines.resume
@@ -80,6 +82,7 @@ class RequestStravaData(private val listener: IStravaLoader) {
     fun parseDataFromStrava(response: String): RunningDataModel {
         val jsonArray = JSONArray(response)
             // val list = ArrayList<RunningDataModel>()
+        val list: MutableList<IRecyclerItems> = mutableListOf()
 
         for (i in 0 until jsonArray.length()) {
             val mainObject = jsonArray.getJSONObject(i)
