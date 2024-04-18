@@ -36,25 +36,25 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-                android:id="@+id/TVTime"
+                android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/TVPeace"
+                app:layout_constraintBottom_toTopOf="@id/tvPeace"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="Time:  00:00"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="25dp"
-        app:layout_constraintStart_toStartOf="@id/TVPeace"/>
+        app:layout_constraintStart_toStartOf="@id/tvPeace"/>
 
 
         <TextView
-                android:id="@+id/TVPeace"
+                android:id="@+id/tvPeace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/TVTime"
+                app:layout_constraintTop_toBottomOf="@id/tvTime"
                 android:text="Peace: 00:00"
 
                 android:textStyle="bold"
@@ -64,12 +64,13 @@
         />
 
         <TextView
+                android:id="@+id/tvDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5.99 KM"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/TVTime"
+                app:layout_constraintEnd_toStartOf="@id/tvTime"
                 android:layout_marginEnd="50dp"
                 android:textSize="30dp"
                 android:textStyle="bold"

@@ -1,22 +1,19 @@
 package com.example.myapplication
 
-import android.content.Context
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.myapplication.models.RunningDataModel
 import com.example.myapplication.constants.Keys
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.example.myapplication.interfaces.IStravaLoader
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 
-interface IStravaLoader{
-    fun onStravaDataReady(data: ArrayList<RunningDataModel>)
-    fun getCurrentContext(): Context
-}
+
 class RequestStravaData(private val listener: IStravaLoader) {
 
     fun getStravaAutorisationCode() {
@@ -40,7 +37,7 @@ class RequestStravaData(private val listener: IStravaLoader) {
         queue.add(stringRequest)
     }
 
-    fun refreshToken() {
+    suspend fun refreshToken(): String? = suspendCoroutine { continuation ->
         val url = "https://www.strava.com/oauth/token" +
                 "?client_id=${Keys.STRAVA_CLIENT_ID}" +
                 "&client_secret=${Keys.STRAVA_CLIENT_SECRET}" +
@@ -53,24 +50,24 @@ class RequestStravaData(private val listener: IStravaLoader) {
             { response ->
                 val stringResponse = JSONObject(response)
                 val accessToken = stringResponse.getString("access_token")
-                getActivitiesInfo(accessToken)
-
-            }, {
-//                Log.d("MyLog", "Response it: $it")
+                continuation.resume(accessToken)
+            },
+            { error ->
+                continuation.resume(null)
             })
 
         queue.add(stringRequest)
     }
 
-    fun getActivitiesInfo(accessToken: String) {
+    fun getActivityInfo(accessToken: String) {
 
         val url = "https://www.strava.com/api/v3/athlete/activities?access_token=$accessToken"
         val queue = Volley.newRequestQueue(listener.getCurrentContext())
         val stringRequest = StringRequest(Request.Method.GET, url,
             { response ->
                 val data = parseDataFromStrava(response)
-//                withContext(Dispatchers.Main){
-//                }
+                Log.d("MyLog","response: $response")
+//                withContext(Dispatchers.Main){}
                 listener.onStravaDataReady(data)
 
             }, {
@@ -80,9 +77,9 @@ class RequestStravaData(private val listener: IStravaLoader) {
 
     }
 
-    fun parseDataFromStrava(response: String): ArrayList<RunningDataModel> {
+    fun parseDataFromStrava(response: String): RunningDataModel {
         val jsonArray = JSONArray(response)
-        val list = ArrayList<RunningDataModel>()
+            // val list = ArrayList<RunningDataModel>()
 
         for (i in 0 until jsonArray.length()) {
             val mainObject = jsonArray.getJSONObject(i)
@@ -104,11 +101,11 @@ class RequestStravaData(private val listener: IStravaLoader) {
                     movingTime = movingTime,
                     type = type,
                 )
-                list.add(parsedDataModel)
-                break
+                //list.add(parsedDataModel)
+                return parsedDataModel
             }
         }
-        return list
+        return RunningDataModel("","","", "")
     }
 
 }

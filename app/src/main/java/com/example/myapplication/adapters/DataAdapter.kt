@@ -9,13 +9,13 @@ import com.example.myapplication.holders.LastRunDataViewHolder
 import com.example.myapplication.holders.WeeklyProgressDataViewHolder
 import com.example.myapplication.models.DataModel
 import com.example.myapplication.models.RunningDataModel
-import java.util.ArrayList
 
 class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
 //    private val dataList = ArrayList<DataModel>()
 
 
     private var myData: DataModel? = null
+    private var stravaRunData: RunningDataModel? = null
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): BaseDataViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(viewType, viewGroup, false)
@@ -37,7 +37,7 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
     override fun getItemCount(): Int {
 //        return dataList.size
 //        return 3
-        if (myData == null) {
+        if (stravaRunData == null) {
             return 0
         }
         return 2
@@ -45,19 +45,21 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
 
 
     override fun onBindViewHolder(dataViewHolder: BaseDataViewHolder, index: Int) {
-        dataViewHolder.bind(myData!!)
+        dataViewHolder.bind(stravaRunData!!)
+
     }
 
 
 
     fun addData(data: DataModel) {
 //        dataList.add(data)
-        myData = data
-        notifyDataSetChanged() // refreshing data in RecyclerView list
+//        myData = data
+//        notifyDataSetChanged() // refreshing data in RecyclerView list
     }
 
-    fun setStravaData(data: ArrayList<RunningDataModel>) {
-
+    fun setStravaData(data: RunningDataModel) {
+        stravaRunData = data
+        notifyDataSetChanged()
     }
 
 }

@@ -3,15 +3,14 @@ package com.example.myapplication.holders
 import android.animation.ObjectAnimator
 import android.view.View
 import com.example.myapplication.databinding.ModelDataLayoutBinding
-import com.example.myapplication.models.DataModel
 import com.example.myapplication.models.RunningDataModel
 
 class WeeklyProgressDataViewHolder(view: View) : BaseDataViewHolder(view) {
 
     val bindingClass = ModelDataLayoutBinding.bind(view)
-    override fun bind(model: DataModel) = with(bindingClass) {
-        tvCountOfKM.text = model.dataKilometers
-        tvCountOfKmPercent.text = model.dataKMPercent
+    override fun bind(stravaRunData: RunningDataModel) = with(bindingClass) {
+//        tvCountOfKM.text = model.dataKilometers
+//        tvCountOfKmPercent.text = model.dataKMPercent
 
 //        val progressBar = dataViewHolder.itemView.findViewById<ProgressBar>(R.id.progress_bar_running)
 //        val dataKilometers = dataViewHolder.itemView.findViewById<TextView>(R.id.tvCountOfKM)
@@ -31,7 +30,9 @@ class WeeklyProgressDataViewHolder(view: View) : BaseDataViewHolder(view) {
         tvCountOfKmPercent.text = "%.1f%%".format(percent)
     }
 
-
+    override fun bindRunning(model: RunningDataModel) {
+        TODO("Not yet implemented")
+    }
 
 
 }

@@ -2,19 +2,22 @@ package com.example.myapplication.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 
-import com.example.myapplication.IStravaLoader
+
 import com.example.myapplication.R
 import com.example.myapplication.RequestStravaData
 import com.example.myapplication.adapters.DataAdapter
-import com.example.myapplication.constants.Keys
 import com.example.myapplication.databinding.FragmentHomeBinding
+import com.example.myapplication.interfaces.IStravaLoader
 import com.example.myapplication.models.DataModel
 import com.example.myapplication.models.RunningDataModel
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), IStravaLoader {
     private lateinit var bindingClass: FragmentHomeBinding
@@ -24,6 +27,7 @@ class HomeFragment : Fragment(), IStravaLoader {
 
     )
     private var index = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,30 +57,26 @@ class HomeFragment : Fragment(), IStravaLoader {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val urlForGet = "http://www.strava.com/oauth/authorize?client_id=${Keys.STRAVA_CLIENT_ID}&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=read"
         val loader = RequestStravaData(this)
-        loader.refreshToken()
+        lifecycleScope.launch {
+            val token = loader.refreshToken()
+            if (token != null) {
+                loader.getActivityInfo(token)
+            }
+        }
 
 
 
-//        var progressBarRunning = bindingClass.rcViewMainScreen
-//        progressBarRunning.max = 50
-//        var currentProgress = 44
-//        ObjectAnimator.ofInt(progressBarRunning, "progress", currentProgress).start()
-//
-//        var percentOfKm = currentProgress.toFloat() / progressBarRunning.max.toFloat() * 100
-//
-//        bindingClass.tvCountOfKM.text = "$currentProgress/${progressBarRunning.max}km"
-//        bindingClass.tvCountOfKmPercent.text = "${"%.1f".format(percentOfKm)}%"
     }
 
     override fun getCurrentContext(): Context {
         return requireContext()
     }
 
-    override fun onStravaDataReady(data: ArrayList<RunningDataModel>) {
+    override fun onStravaDataReady(data: RunningDataModel) {
         adapter.setStravaData(data)
     }
+
 
 
 }
