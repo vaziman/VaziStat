@@ -3,12 +3,13 @@ package com.example.myapplication.holders
 import android.animation.ObjectAnimator
 import android.view.View
 import com.example.myapplication.databinding.ModelDataLayoutBinding
+import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.models.RunningDataModel
 
 class WeeklyProgressDataViewHolder(view: View) : BaseDataViewHolder(view) {
 
     val bindingClass = ModelDataLayoutBinding.bind(view)
-    override fun bind(stravaRunData: RunningDataModel) = with(bindingClass) {
+    override fun bindRunning(stravaRunData: RunningDataModel) = with(bindingClass) {
 //        tvCountOfKM.text = model.dataKilometers
 //        tvCountOfKmPercent.text = model.dataKMPercent
 
@@ -30,7 +31,7 @@ class WeeklyProgressDataViewHolder(view: View) : BaseDataViewHolder(view) {
         tvCountOfKmPercent.text = "%.1f%%".format(percent)
     }
 
-    override fun bindRunning(model: RunningDataModel) {
+    override fun bindCycling(model: IRecyclerItems.CyclingDataModel) {
         TODO("Not yet implemented")
     }
 
