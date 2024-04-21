@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.databinding.LastBikeBinding
 import com.example.myapplication.holders.BaseDataViewHolder
+import com.example.myapplication.holders.LastCyclingDataViewHolder
 import com.example.myapplication.holders.LastRunDataViewHolder
 import com.example.myapplication.holders.WeeklyProgressDataViewHolder
 import com.example.myapplication.models.DataModel
@@ -23,6 +25,9 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
         if (viewType == R.layout.last_run) {
             return LastRunDataViewHolder(view)
         }
+        if (viewType == R.layout.last_bike) {
+            return LastCyclingDataViewHolder(view)
+        }
         return WeeklyProgressDataViewHolder(view)
     }
 
@@ -30,6 +35,9 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
 //        dataItems[position].getItemViewType()
         if (position == 1) {
             return R.layout.last_run
+        }
+        if (position == 2) {
+            return R.layout.last_bike
         }
         return R.layout.model_data_layout
     }
@@ -40,13 +48,12 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
         if (stravaRunData == null) {
             return 0
         }
-        return 2
+        return 3
     }
 
 
     override fun onBindViewHolder(dataViewHolder: BaseDataViewHolder, index: Int) {
-        dataViewHolder.bind(stravaRunData!!)
-
+        dataViewHolder.bindRunning(stravaRunData!!)
     }
 
 

@@ -108,7 +108,7 @@ class RequestStravaData(private val listener: IStravaLoader) {
                 return parsedDataModel
             }
         }
-        return RunningDataModel("","","", "")
+        return RunningDataModel("1","1","1", "1")
     }
 
 }
