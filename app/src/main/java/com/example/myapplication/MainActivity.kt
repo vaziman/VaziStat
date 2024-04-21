@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.fragments.HomeFragment
 import com.example.myapplication.fragments.ListMoreFragment
+import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.interfaces.IStravaLoader
-import com.example.myapplication.models.RunningDataModel
 
 
 class MainActivity : AppCompatActivity(), IStravaLoader {
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), IStravaLoader {
         fragmentTransaction.commit()
     }
 
-    override fun onStravaDataReady(data: RunningDataModel) {
+    override fun onStravaDataReady(data: IRecyclerItems.RunningDataModel) {
         TODO("Not yet implemented")
     }
 

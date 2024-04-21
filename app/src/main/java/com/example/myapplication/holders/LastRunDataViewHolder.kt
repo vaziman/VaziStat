@@ -1,15 +1,13 @@
 package com.example.myapplication.holders
 
-import android.util.Log
 import android.view.View
 import com.example.myapplication.databinding.LastRunBinding
 import com.example.myapplication.interfaces.IRecyclerItems
-import com.example.myapplication.models.RunningDataModel
 
 class LastRunDataViewHolder(view: View) : BaseDataViewHolder(view) {
     val bindingClass = LastRunBinding.bind(view)
 
-    override fun bindRunning(stravaRunData: RunningDataModel) = with(bindingClass) {
+    override fun bindRunning(stravaRunData: IRecyclerItems.RunningDataModel) = with(bindingClass) {
         val km = stravaRunData.distance.toFloat() / 1000.0
         val formattedKilometers = String.format("%.2f", km)
         val peaceMin = (stravaRunData.movingTime.toFloat() / 60) / km

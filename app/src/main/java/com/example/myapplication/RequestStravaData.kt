@@ -4,11 +4,9 @@ import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.myapplication.models.RunningDataModel
 import com.example.myapplication.constants.Keys
 import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.interfaces.IStravaLoader
-import com.squareup.kotlinpoet.MUTABLE_LIST
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.coroutines.resume
@@ -79,10 +77,10 @@ class RequestStravaData(private val listener: IStravaLoader) {
 
     }
 
-    fun parseDataFromStrava(response: String): RunningDataModel {
+    fun parseDataFromStrava(response: String): IRecyclerItems.RunningDataModel {
         val jsonArray = JSONArray(response)
             // val list = ArrayList<RunningDataModel>()
-        val list: MutableList<IRecyclerItems> = mutableListOf()
+        val list: MutableList<Any> = mutableListOf()
 
         for (i in 0 until jsonArray.length()) {
             val mainObject = jsonArray.getJSONObject(i)
@@ -98,17 +96,48 @@ class RequestStravaData(private val listener: IStravaLoader) {
                 Log.d("MyLog", "distance: ${distance}")
                 Log.d("MyLog", "movingTime: ${movingTime}")
 
-                val parsedDataModel = RunningDataModel(
+                val parsedDataModel = IRecyclerItems.RunningDataModel(
                     name = name,
                     distance = distance,
                     movingTime = movingTime,
                     type = type,
                 )
-                //list.add(parsedDataModel)
-                return parsedDataModel
+                list.add(parsedDataModel)
+                break
+               // return parsedDataModel
             }
         }
-        return RunningDataModel("1","1","1", "1")
+        for (i in 0 until jsonArray.length()) {
+            val mainObject = jsonArray.getJSONObject(i)
+            val type = mainObject.getString("type")
+
+            if (type == "Ride") {
+                val distance = mainObject.getString("distance")
+                val name = mainObject.getString("name")
+                val movingTime = mainObject.getString("moving_time")
+                val avgSpeed = mainObject.getString("average_speed")
+
+                Log.d("MyLog", "name: ${name}")
+                Log.d("MyLog", "type: ${type}")
+                Log.d("MyLog", "distance: ${distance}")
+                Log.d("MyLog", "movingTime: ${movingTime}")
+                Log.d("MyLog", "avgSpeed: ${avgSpeed}")
+
+                val parsedDataModel = IRecyclerItems.CyclingDataModel(
+                    name = name,
+                    distance = distance,
+                    movingTime = movingTime,
+                    type = type,
+                    avgSpeed = "123",
+                )
+                list.add(parsedDataModel)
+                Log.d("MyLog", "list: ${list}")
+                break
+//                return parsedDataModel
+            }
+        }
+        return IRecyclerItems.RunningDataModel("Afternoon Run","6140.0","3029","Run")
+
     }
 
 }
