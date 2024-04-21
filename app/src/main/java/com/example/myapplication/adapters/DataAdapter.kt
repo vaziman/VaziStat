@@ -1,6 +1,7 @@
 package com.example.myapplication.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -14,41 +15,54 @@ import com.example.myapplication.models.RunningDataModel
 
 class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
 //    private val dataList = ArrayList<DataModel>()
+    private val listLayouts = listOf(
+        R.layout.model_data_layout,
+        R.layout.last_run,
+        R.layout.last_bike
+    )
 
 
     private var myData: DataModel? = null
     private var stravaRunData: RunningDataModel? = null
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): BaseDataViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(viewType, viewGroup, false)
+//        val view = LayoutInflater.from(viewGroup.context).inflate(viewType, viewGroup, false)
 
-        if (viewType == R.layout.last_run) {
-            return LastRunDataViewHolder(view)
+        val inflater = LayoutInflater.from(viewGroup.context)
+        val view = inflater.inflate(viewType,viewGroup, false)
+
+        return getViewHolder(view, viewType)
+
+//        if (viewType == R.layout.last_run) {
+//            return LastRunDataViewHolder(view)
+//        }
+//        if (viewType == R.layout.last_bike) {
+//            return LastCyclingDataViewHolder(view)
+//        }
+//        return WeeklyProgressDataViewHolder(view)
+    }
+
+    private fun getViewHolder(view: View, viewType: Int): BaseDataViewHolder {
+        return when (viewType) {
+            R.layout.last_run -> LastRunDataViewHolder(view)
+            R.layout.last_bike -> LastCyclingDataViewHolder(view)
+            else -> WeeklyProgressDataViewHolder(view)
         }
-        if (viewType == R.layout.last_bike) {
-            return LastCyclingDataViewHolder(view)
-        }
-        return WeeklyProgressDataViewHolder(view)
     }
 
     override fun getItemViewType(position: Int): Int {
 //        dataItems[position].getItemViewType()
-        if (position == 1) {
-            return R.layout.last_run
+        return when(position){
+            1 -> R.layout.last_run
+            2 -> R.layout.last_bike
+            else -> R.layout.model_data_layout
         }
-        if (position == 2) {
-            return R.layout.last_bike
-        }
-        return R.layout.model_data_layout
+//        return listLayouts[position]
     }
 
     override fun getItemCount(): Int {
-//        return dataList.size
-//        return 3
-        if (stravaRunData == null) {
-            return 0
-        }
-        return 3
+        return if(stravaRunData == null) 0 else 3
+//        return listLayouts.size
     }
 
 

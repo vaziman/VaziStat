@@ -48,8 +48,8 @@ class HomeFragment : Fragment(), IStravaLoader {
     private fun init(){
         bindingClass.apply {
             rcViewMainScreen.adapter = adapter
-            val data = DataModel( progressBar = 50, dataKilometers = "00/00", dataKMPercent = "00/00%")
-            adapter.addData(data)
+//            val data = DataModel( progressBar = 50, dataKilometers = "00/00", dataKMPercent = "00/00%")
+//            adapter.addData(data)
 
 
         }
