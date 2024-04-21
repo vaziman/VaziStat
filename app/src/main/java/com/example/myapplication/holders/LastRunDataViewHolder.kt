@@ -16,9 +16,9 @@ class LastRunDataViewHolder(view: View) : BaseDataViewHolder(view) {
         val peaceSec = peaceMinFloat.toInt() * 60 / 100
 
         tvNameOfLastRun.text = stravaRunData.name
-        tvTime.text = "Time: ${stravaRunData.movingTime.toInt() / 60}:${stravaRunData.movingTime.toInt() % 60}"
-        tvDistance.text= "${formattedKilometers} KM"
-        tvPeace.text = "Peace: ${((stravaRunData.movingTime.toFloat() / 60) / km).toInt()}:$peaceSec "
+        tvTimeRun.text = "Time: ${stravaRunData.movingTime.toInt() / 60}:${stravaRunData.movingTime.toInt() % 60}"
+        tvDistanceRun.text= "${formattedKilometers} KM"
+        tvPeaceRun.text = "Peace: ${((stravaRunData.movingTime.toFloat() / 60) / km).toInt()}:$peaceSec "
 
 
 //        tvCountOfKM.text = model.dataKilometers
