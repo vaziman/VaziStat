@@ -15,6 +15,7 @@ import com.example.myapplication.adapters.DataAdapter
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.interfaces.IStravaLoader
+import com.example.myapplication.models.StravaDataModel
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), IStravaLoader {
@@ -71,7 +72,7 @@ class HomeFragment : Fragment(), IStravaLoader {
         return requireContext()
     }
 
-    override fun onStravaDataReady(data: IRecyclerItems.RunningDataModel) {
+    override fun onStravaDataReady(data: StravaDataModel) {
         adapter.setStravaData(data)
     }
 

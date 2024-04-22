@@ -1,5 +1,6 @@
 package com.example.myapplication.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,10 @@ import com.example.myapplication.holders.LastCyclingDataViewHolder
 import com.example.myapplication.holders.LastRunDataViewHolder
 import com.example.myapplication.holders.WeeklyProgressDataViewHolder
 import com.example.myapplication.interfaces.IRecyclerItems
-import com.example.myapplication.models.DataModel
+import com.example.myapplication.models.CyclingDataModel
+import com.example.myapplication.models.RunningDataModel
+import com.example.myapplication.models.StravaDataModel
+import com.squareup.kotlinpoet.STRING
 
 class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
 //    private val dataList = ArrayList<DataModel>()
@@ -21,8 +25,9 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
     )
 
 
-    private var myData: DataModel? = null
-    private var stravaRunData: IRecyclerItems.RunningDataModel? = null
+    private var myData: StravaDataModel? = null
+    private var stravaRunData: RunningDataModel? = null
+    private var stravaCyclingData: CyclingDataModel? = null
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): BaseDataViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(viewType, viewGroup, false)
@@ -61,7 +66,7 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        if (stravaRunData == null){
+        if (stravaRunData == null && stravaCyclingData == null){
             return 0
         }
         return listofLayouts.size
@@ -72,18 +77,23 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
 
     override fun onBindViewHolder(dataViewHolder: BaseDataViewHolder, index: Int) {
         dataViewHolder.bindRunning(stravaRunData!!)
+        dataViewHolder.bindCycling(stravaCyclingData!!)
     }
 
 
 
-    fun addData(data: DataModel) {
+    fun addData(data: StravaDataModel) {
 //        dataList.add(data)
 //        myData = data
 //        notifyDataSetChanged() // refreshing data in RecyclerView list
     }
 
-    fun setStravaData(data: IRecyclerItems.RunningDataModel) {
-        stravaRunData = data
+    fun setStravaData(data: StravaDataModel) {
+        val stravaDataModel = data
+
+
+        stravaRunData = stravaDataModel.runningDataModel
+        stravaCyclingData = stravaDataModel.cyclingDataModel
         notifyDataSetChanged()
     }
 

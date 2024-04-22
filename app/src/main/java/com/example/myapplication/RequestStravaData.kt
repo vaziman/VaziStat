@@ -7,6 +7,9 @@ import com.android.volley.toolbox.Volley
 import com.example.myapplication.constants.Keys
 import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.interfaces.IStravaLoader
+import com.example.myapplication.models.CyclingDataModel
+import com.example.myapplication.models.RunningDataModel
+import com.example.myapplication.models.StravaDataModel
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.coroutines.resume
@@ -67,20 +70,17 @@ class RequestStravaData(private val listener: IStravaLoader) {
             { response ->
                 val data = parseDataFromStrava(response)
                 Log.d("MyLog","response: $response")
-//                withContext(Dispatchers.Main){}
                 listener.onStravaDataReady(data)
 
             }, {
-//                 Log.d("MyLog", "Response: $it")
             })
         queue.add(stringRequest)
 
     }
 
-    fun parseDataFromStrava(response: String): IRecyclerItems.RunningDataModel {
+    fun parseDataFromStrava(response: String): StravaDataModel {
         val jsonArray = JSONArray(response)
-            // val list = ArrayList<RunningDataModel>()
-        val list: MutableList<Any> = mutableListOf()
+        val stravaDataModel = StravaDataModel()
 
         for (i in 0 until jsonArray.length()) {
             val mainObject = jsonArray.getJSONObject(i)
@@ -91,18 +91,15 @@ class RequestStravaData(private val listener: IStravaLoader) {
                 val name = mainObject.getString("name")
                 val movingTime = mainObject.getString("moving_time")
 
-                Log.d("MyLog", "name: ${name}")
-                Log.d("MyLog", "type: ${type}")
-                Log.d("MyLog", "distance: ${distance}")
-                Log.d("MyLog", "movingTime: ${movingTime}")
 
-                val parsedDataModel = IRecyclerItems.RunningDataModel(
+                val parsedDataModel = RunningDataModel(
                     name = name,
                     distance = distance,
                     movingTime = movingTime,
                     type = type,
                 )
-                list.add(parsedDataModel)
+//                list.add(parsedDataModel)
+                stravaDataModel.runningDataModel = parsedDataModel
                 break
                // return parsedDataModel
             }
@@ -111,33 +108,27 @@ class RequestStravaData(private val listener: IStravaLoader) {
             val mainObject = jsonArray.getJSONObject(i)
             val type = mainObject.getString("type")
 
+
             if (type == "Ride") {
                 val distance = mainObject.getString("distance")
                 val name = mainObject.getString("name")
                 val movingTime = mainObject.getString("moving_time")
                 val avgSpeed = mainObject.getString("average_speed")
 
-                Log.d("MyLog", "name: ${name}")
-                Log.d("MyLog", "type: ${type}")
-                Log.d("MyLog", "distance: ${distance}")
-                Log.d("MyLog", "movingTime: ${movingTime}")
-                Log.d("MyLog", "avgSpeed: ${avgSpeed}")
-
-                val parsedDataModel = IRecyclerItems.CyclingDataModel(
+                val parsedDataModel = CyclingDataModel(
                     name = name,
                     distance = distance,
                     movingTime = movingTime,
                     type = type,
-                    avgSpeed = "123",
+                    avgSpeed = avgSpeed
                 )
-                list.add(parsedDataModel)
-                Log.d("MyLog", "list: ${list}")
+
+                stravaDataModel.cyclingDataModel = parsedDataModel
                 break
-//                return parsedDataModel
             }
         }
-        return IRecyclerItems.RunningDataModel("Afternoon Run","6140.0","3029","Run")
-
+        Log.d("MyLog", "list: ${stravaDataModel}")
+        return stravaDataModel
     }
 
 }

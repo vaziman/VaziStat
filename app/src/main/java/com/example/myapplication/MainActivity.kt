@@ -13,6 +13,7 @@ import com.example.myapplication.fragments.HomeFragment
 import com.example.myapplication.fragments.ListMoreFragment
 import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.interfaces.IStravaLoader
+import com.example.myapplication.models.StravaDataModel
 
 
 class MainActivity : AppCompatActivity(), IStravaLoader {
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity(), IStravaLoader {
         fragmentTransaction.commit()
     }
 
-    override fun onStravaDataReady(data: IRecyclerItems.RunningDataModel) {
+    override fun onStravaDataReady(data: StravaDataModel) {
         TODO("Not yet implemented")
     }
 
