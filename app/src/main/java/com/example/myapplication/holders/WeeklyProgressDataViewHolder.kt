@@ -10,7 +10,7 @@ import com.example.myapplication.models.RunningDataModel
 class WeeklyProgressDataViewHolder(view: View) : BaseDataViewHolder(view) {
 
     val bindingClass = ModelDataLayoutBinding.bind(view)
-    override fun bindRunning(stravaRunData: RunningDataModel) = with(bindingClass) {
+    override fun bindRunning(stravaRunData: RunningDataModel?) = with(bindingClass) {
 //        tvCountOfKM.text = model.dataKilometers
 //        tvCountOfKmPercent.text = model.dataKMPercent
 
@@ -21,7 +21,6 @@ class WeeklyProgressDataViewHolder(view: View) : BaseDataViewHolder(view) {
 //        val lastRun = dataViewHolder.itemView.findViewById<CardView>(R.id.CVLastRun)
 
 
-
         progressBarRunning.max = 50
         var currentProgress = 44
         var percent = currentProgress.toFloat() / progressBarRunning.max.toFloat() * 100
@@ -30,10 +29,15 @@ class WeeklyProgressDataViewHolder(view: View) : BaseDataViewHolder(view) {
 
         tvCountOfKM.text = "$currentProgress / ${progressBarRunning.max}km"
         tvCountOfKmPercent.text = "%.1f%%".format(percent)
+
+
     }
 
-    override fun bindCycling(model: CyclingDataModel) {
+    override fun bindCycling(model: CyclingDataModel?) {
 
+    }
+
+    override fun bindWeeklyProgress(model: WeeklyProgressDataViewHolder?) = with(bindingClass) {
     }
 
 

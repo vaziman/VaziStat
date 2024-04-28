@@ -2,7 +2,7 @@
 
 <androidx.cardview.widget.CardView
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/CVLastRun"
+        android:id="@+id/CVLastBike"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -33,8 +33,9 @@
                 android:layout_height="50dp"
                 android:src="@drawable/bike_icon"
                 app:layout_constraintStart_toStartOf="parent"
-
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="4dp"
+        />
 
         <TextView
                 android:id="@+id/tvTimeBike"
