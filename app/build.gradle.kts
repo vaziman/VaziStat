@@ -1,7 +1,12 @@
+import com.google.wireless.android.sdk.stats.GradleBuildProject.PluginType
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+
 }
+
 
 android {
     namespace = "com.example.myapplication"
@@ -15,6 +20,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -32,6 +41,15 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 }
 
@@ -44,6 +62,12 @@ dependencies {
     implementation("androidx.privacysandbox.tools:tools-core:1.0.0-alpha08")
     testImplementation("junit:junit:4.13.2")
 //    implementation("com.google.code.gson:gson:2.8.8")
+
+    // room
+    implementation("androidx.room:room-ktx:2.6.1") // Room library
+    implementation("androidx.room:room-runtime:2.6.1") // Room library
+    annotationProcessor("androidx.room:room-compiler:2.6.1") // Room library
+    kapt("androidx.room:room-compiler:2.6.1") // Room library
 
 
 
