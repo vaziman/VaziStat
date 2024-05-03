@@ -57,15 +57,22 @@ class HomeFragment : Fragment(), IStravaLoader {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val loader = RequestStravaData(this)
-        lifecycleScope.launch {
-            val token = loader.refreshToken()
-            if (token != null) {
-                loader.getActivityInfo(token)
+
+
+        loader.refreshToken {accessToken ->
+            if (accessToken != null){
+                loader.getActivityInfo(accessToken)
             }
         }
+//        val token = loader.refreshToken()
+//        if (token != null) {
+//            loader.getActivityInfo(token)
+//        }
 
 
-
+//        lifecycleScope.launch {
+//
+//        }
     }
 
     override fun getCurrentContext(): Context {

@@ -7,11 +7,11 @@ import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.example.myapplication.adapters.DataAdapter
 
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.fragments.HomeFragment
 import com.example.myapplication.fragments.ListMoreFragment
-import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.interfaces.IStravaLoader
 import com.example.myapplication.models.StravaDataModel
 
@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity(), IStravaLoader {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
         bindingClass = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingClass.root)
+
+        val dataAdapter = DataAdapter()
+        dataAdapter.setDataContext(this)
 
 
         val toolbar = findViewById<Toolbar>(R.id.toolbarMain)

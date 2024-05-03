@@ -1,13 +1,11 @@
 package com.example.myapplication.adapters
 
-import android.view.View
+import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.DataViewModel
 import com.example.myapplication.R
 import com.example.myapplication.holders.BaseDataViewHolder
-import com.example.myapplication.holders.LastCyclingDataViewHolder
-import com.example.myapplication.holders.LastRunDataViewHolder
 import com.example.myapplication.holders.WeeklyProgressDataViewHolder
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
@@ -15,6 +13,7 @@ import com.example.myapplication.models.StravaDataModel
 
 class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
     val dataViewHolder = DataViewModel()
+    lateinit var thisContext: Context
     private val listofLayouts = listOf(
         R.layout.model_data_layout,
         R.layout.last_run,
@@ -72,4 +71,7 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun setDataContext(context: Context){
+        thisContext = context
+    }
 }

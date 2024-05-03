@@ -1,14 +1,19 @@
 package com.example.myapplication.holders
 
 import android.view.View
+
 import com.example.myapplication.databinding.LastRunBinding
-import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
-import com.example.myapplication.models.StravaDataModel
+
+
 
 class LastRunDataViewHolder(view: View) : BaseDataViewHolder(view) {
+
     val bindingClass = LastRunBinding.bind(view)
+
+//    val context = MainActivity().getCurrentContext()
+//    val db = MainDB.getDb(context)
 
     override fun bindRunning(stravaRunData: RunningDataModel?) = with(bindingClass) {
         if(stravaRunData != null) {
@@ -25,11 +30,17 @@ class LastRunDataViewHolder(view: View) : BaseDataViewHolder(view) {
             tvDistanceRun.text = "${formattedKilometers} KM"
             if (peaceSec < 10){
                 tvPeaceRun.text = "Peace: ${((stravaRunData.movingTime.toFloat() / 60) / km).toInt()}:0$peaceSec"
-            }else tvPeaceRun.text = "Peace: ${((stravaRunData.movingTime.toFloat() / 60) / km).toInt()}:$peaceSec"
+            }else {
+                tvPeaceRun.text = "Peace: ${((stravaRunData.movingTime.toFloat() / 60) / km).toInt()}:$peaceSec"
+            }
+//            Thread{
+//                db.getDao().insertRunningActivities(stravaRunData) // insert running data to dataBase
+//            }.start()
         }
         else {
             CLLastRun.visibility = View.GONE
         }
+
 
     }
 
