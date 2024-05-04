@@ -1,17 +1,18 @@
 package com.example.myapplication.holders
 
+import android.content.Context
 import android.view.View
 
 import com.example.myapplication.databinding.LastRunBinding
+import com.example.myapplication.interfaces.IStravaLoader
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
+import com.example.myapplication.models.StravaDataModel
 
 
-
-class LastRunDataViewHolder(view: View) : BaseDataViewHolder(view) {
+class LastRunDataViewHolder(var view: View) : BaseDataViewHolder(view) {
 
     val bindingClass = LastRunBinding.bind(view)
-
 //    val context = MainActivity().getCurrentContext()
 //    val db = MainDB.getDb(context)
 
@@ -33,6 +34,7 @@ class LastRunDataViewHolder(view: View) : BaseDataViewHolder(view) {
             }else {
                 tvPeaceRun.text = "Peace: ${((stravaRunData.movingTime.toFloat() / 60) / km).toInt()}:$peaceSec"
             }
+
 //            Thread{
 //                db.getDao().insertRunningActivities(stravaRunData) // insert running data to dataBase
 //            }.start()
@@ -52,4 +54,5 @@ class LastRunDataViewHolder(view: View) : BaseDataViewHolder(view) {
     override fun bindWeeklyProgress(model: WeeklyProgressDataViewHolder?) {
 
     }
+
 }

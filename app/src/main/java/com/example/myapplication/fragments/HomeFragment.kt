@@ -12,13 +12,15 @@ import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.R
 import com.example.myapplication.RequestStravaData
 import com.example.myapplication.adapters.DataAdapter
+import com.example.myapplication.database.MainDB
+import com.example.myapplication.database.RunningEntity
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.interfaces.IStravaLoader
 import com.example.myapplication.models.StravaDataModel
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment(), IStravaLoader {
+class HomeFragment: Fragment(), IStravaLoader {
     private lateinit var bindingClass: FragmentHomeBinding
     private val adapter = DataAdapter()
     private val dataList = listOf(
@@ -26,6 +28,7 @@ class HomeFragment : Fragment(), IStravaLoader {
 
     )
     private var index = 0
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,21 +61,12 @@ class HomeFragment : Fragment(), IStravaLoader {
         super.onViewCreated(view, savedInstanceState)
         val loader = RequestStravaData(this)
 
-
         loader.refreshToken {accessToken ->
             if (accessToken != null){
                 loader.getActivityInfo(accessToken)
             }
         }
-//        val token = loader.refreshToken()
-//        if (token != null) {
-//            loader.getActivityInfo(token)
-//        }
 
-
-//        lifecycleScope.launch {
-//
-//        }
     }
 
     override fun getCurrentContext(): Context {
@@ -81,6 +75,15 @@ class HomeFragment : Fragment(), IStravaLoader {
 
     override fun onStravaDataReady(data: StravaDataModel) {
         adapter.setStravaData(data)
+
+        lifecycleScope.launch {
+            val context = getCurrentContext()
+            val dataManager = data.runningEntity
+            val db = MainDB.getDb(context)
+            if (dataManager != null) {
+                db.getDao().insertRunningActivities(dataManager)
+            }
+        }
     }
 
 

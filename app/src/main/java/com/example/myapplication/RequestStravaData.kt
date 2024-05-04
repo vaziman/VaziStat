@@ -6,10 +6,12 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.myapplication.constants.Keys
+import com.example.myapplication.database.RunningEntity
 import com.example.myapplication.interfaces.IStravaLoader
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
 import com.example.myapplication.models.StravaDataModel
+import com.example.myapplication.models.toRunningEntity
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.coroutines.resume
@@ -18,6 +20,7 @@ import kotlin.coroutines.suspendCoroutine
 
 
 class RequestStravaData(private val listener: IStravaLoader) {
+
 //    lateinit var accessToken: String
 
     fun getStravaAutorisationCode() {
@@ -42,7 +45,7 @@ class RequestStravaData(private val listener: IStravaLoader) {
     }
 
      fun refreshToken(callback: (String?) -> Unit) {
-        var accessToken = ""
+
         val url = "https://www.strava.com/oauth/token" +
                 "?client_id=${Keys.STRAVA_CLIENT_ID}" +
                 "&client_secret=${Keys.STRAVA_CLIENT_SECRET}" +
@@ -54,7 +57,7 @@ class RequestStravaData(private val listener: IStravaLoader) {
             Request.Method.POST, url,
             { response ->
                 val stringResponse = JSONObject(response)
-                accessToken = stringResponse.getString("access_token")
+                val accessToken = stringResponse.getString("access_token")
                 callback.invoke(accessToken)
             },
             { error ->
@@ -121,10 +124,11 @@ class RequestStravaData(private val listener: IStravaLoader) {
                     elevHigh = elevHigh,
                     elevLow = elevLow,
                 )
-//                list.add(parsedDataModel)
+                parsedDataModel.toRunningEntity()
+
                 stravaDataModel.runningDataModel = parsedDataModel
                 break
-               // return parsedDataModel
+
             }
         }
         for (i in 0 until jsonArray.length()) {
@@ -166,9 +170,8 @@ class RequestStravaData(private val listener: IStravaLoader) {
                     elevGain = elevGain,
                     elevHigh = elevHigh,
                     elevLow = elevLow,
-
-
                 )
+
 
                 stravaDataModel.cyclingDataModel = parsedDataModel
                 break
