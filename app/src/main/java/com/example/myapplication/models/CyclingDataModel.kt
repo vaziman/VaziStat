@@ -1,9 +1,5 @@
 package com.example.myapplication.models
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
 data class CyclingDataModel(
 
     val name: String,
@@ -21,5 +17,6 @@ data class CyclingDataModel(
     val elevGain: String,
     val elevHigh: String,
     val elevLow: String,
+    val idOfActivity: String,
 
-)
+    )

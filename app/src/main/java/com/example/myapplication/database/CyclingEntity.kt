@@ -2,9 +2,11 @@ package com.example.myapplication.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.example.myapplication.MainActivity
 
-//@Entity(tableName = "cyclingTracker")
+@Entity(tableName = "cyclingTracker", indices = [Index(value = ["idOfActivity"], unique = true)])
 data class CyclingEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
@@ -38,4 +40,6 @@ data class CyclingEntity(
     val elevHigh: String,
     @ColumnInfo(name = "elevLow")
     val elevLow: String,
+    @ColumnInfo(name = "idOfActivity")
+    val idOfActivity: String
 )

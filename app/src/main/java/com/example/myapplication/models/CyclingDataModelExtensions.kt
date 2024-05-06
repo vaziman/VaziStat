@@ -1,16 +1,18 @@
 package com.example.myapplication.models
 
+import com.example.myapplication.database.CyclingEntity
 import com.example.myapplication.database.RunningEntity
 
-fun RunningDataModel.toRunningEntity(): RunningEntity{
-    return RunningEntity(
+fun CyclingDataModel.toCyclingEntity(): CyclingEntity {
+    return CyclingEntity(
         name = name,
         distance = distance,
         movingTime = movingTime,
         type = type,
+        avgSpeed = avgSpeed,
         startDate = startDate,
+        maxSpeed = maxSpeed,
         locationCountry = locationCountry,
-        avgCadence = avgCadence,
         avgTemp = avgTemp,
         hasHeartRate = hasHeartRate,
         avgHeartRate = avgHeartRate,
@@ -19,5 +21,6 @@ fun RunningDataModel.toRunningEntity(): RunningEntity{
         elevHigh = elevHigh,
         elevLow = elevLow,
         idOfActivity = idOfActivity
-    )
+
+        )
 }

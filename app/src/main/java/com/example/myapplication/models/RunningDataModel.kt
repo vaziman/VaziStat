@@ -18,4 +18,5 @@ data class RunningDataModel(
     val elevGain: String,
     val elevHigh: String,
     val elevLow: String,
+    val idOfActivity: String,
 )

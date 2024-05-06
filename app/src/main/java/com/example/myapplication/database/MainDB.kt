@@ -8,7 +8,7 @@ import com.example.myapplication.interfaces.IDaoRoom
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
 
-@Database(entities = [RunningEntity::class], version = 1)
+@Database(entities = [RunningEntity::class, CyclingEntity::class], version = 1)
 abstract class MainDB: RoomDatabase(){
 
     abstract fun getDao(): IDaoRoom
