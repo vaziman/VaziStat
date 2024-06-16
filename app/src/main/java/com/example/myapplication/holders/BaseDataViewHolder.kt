@@ -13,7 +13,6 @@ abstract class BaseDataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     abstract fun bindRunning(stravaRunData: RunningDataModel?)
 
-
     abstract fun bindCycling(model: CyclingDataModel?)
 
     abstract fun bindWeeklyProgress(model: WeeklyProgressDataViewHolder?)

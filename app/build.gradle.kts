@@ -60,6 +60,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment:2.7.7")
     implementation("com.android.volley:volley:1.2.1")
     implementation("androidx.privacysandbox.tools:tools-core:1.0.0-alpha08")
+    implementation("androidx.compose.animation:animation-graphics-android:1.6.7")
     testImplementation("junit:junit:4.13.2")
 //    implementation("com.google.code.gson:gson:2.8.8")
 

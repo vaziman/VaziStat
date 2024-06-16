@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), IStravaLoader {
         super.onCreate(savedInstanceState)
         bindingClass = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingClass.root)
+        replaceFragment(HomeFragment()) // set homeFragment on Main screen
 
         val dataAdapter = DataAdapter()
         dataAdapter.setDataContext(this)
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(), IStravaLoader {
         setSupportActionBar(toolbar)  // activation return button of toolbar
         // setSupportActionBar(findViewById(R.id.toolbarMain))
 
-        replaceFragment(HomeFragment()) // set homeFragment on Main screen
+
 
         bindingClass.bottomNavMenu.setOnItemSelectedListener {
             when (it.itemId) {

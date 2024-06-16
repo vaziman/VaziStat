@@ -58,7 +58,7 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
     override fun onBindViewHolder(dataViewHolder: BaseDataViewHolder, index: Int) {
         dataViewHolder.bindRunning(stravaRunData)
         dataViewHolder.bindCycling(stravaCyclingData)
-//        dataViewHolder.bindWeeklyProgress(weeklyProgressData)
+        dataViewHolder.bindWeeklyProgress(weeklyProgressData)
 
     }
 

@@ -8,6 +8,11 @@ import com.example.myapplication.database.CyclingEntity
 import com.example.myapplication.database.RunningEntity
 import kotlinx.coroutines.flow.Flow
 
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.time.temporal.WeekFields
+import java.util.Locale
+
 @Dao
 interface IDaoRoom {
     @Insert
@@ -18,6 +23,14 @@ interface IDaoRoom {
 
     @Query("SELECT * FROM runningTracker")
     fun getItemsFromRunningTracker(): Flow<List<RunningEntity>>
+
+    @Query("""
+        SELECT * FROM runningTracker
+        WHERE date(startDate) >= date(:startDate)
+        AND date(startDate) <= date(:endDate)
+    """)
+    fun getActivitiesForCurrentWeek(startDate: String, endDate: String): Flow<List<RunningEntity>>
+
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertIfNotExistCycling(entity: CyclingEntity)
