@@ -14,10 +14,6 @@ import org.json.JSONObject
 
 class RequestStravaData(private val listener: IStravaLoader) {
 
-    //    lateinit var accessToken: String
-//    lateinit var listOfStravaData: List<String>
-    val homeFragment = HomeFragment()
-
     fun getStravaAutorisationCode() {
 
         val urlAuthorizeCode = "https://www.strava.com/oauth/token?client_id=${Keys.STRAVA_CLIENT_ID}" +
@@ -31,7 +27,6 @@ class RequestStravaData(private val listener: IStravaLoader) {
                 val stringResponse = JSONObject(response)
                 val accessToken = stringResponse.getJSONObject("access_token")
             }, {
-//                 Log.d("MyLog", "Response: $it")
             })
         queue.add(stringRequest)
     }
@@ -66,7 +61,6 @@ class RequestStravaData(private val listener: IStravaLoader) {
         val stringRequest = StringRequest(Request.Method.GET, url,
             { response ->
                 val data = parseDataFromStrava(response)
-                Log.d("MyLog", "response: $response")
                 listener.onStravaDataReady(data)
 
             }, {
@@ -121,8 +115,6 @@ class RequestStravaData(private val listener: IStravaLoader) {
                     elevLow = elevLow,
                     idOfActivity = idOfActivity,
                 )
-//                homeFragment.initRunEntityVariable(parsedDataModel.toRunningEntity())
-//                Log.d("MyLog", "runEntityData: ${runEntity }}")
                 stravaDataModel.runningDataModel = parsedDataModel
                 break
 

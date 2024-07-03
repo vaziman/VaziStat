@@ -7,6 +7,7 @@ import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
 import com.example.myapplication.models.StravaDataModel
+import com.example.myapplication.models.WeeklyRunningDataModel
 
 
 abstract class BaseDataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -15,5 +16,5 @@ abstract class BaseDataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     abstract fun bindCycling(model: CyclingDataModel?)
 
-    abstract fun bindWeeklyProgress(model: WeeklyProgressDataViewHolder?)
+    abstract fun bindWeeklyProgress(weeklyData: WeeklyRunningDataModel?)
 }

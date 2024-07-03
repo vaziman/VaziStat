@@ -8,6 +8,7 @@ import com.example.myapplication.interfaces.IStravaLoader
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
 import com.example.myapplication.models.StravaDataModel
+import com.example.myapplication.models.WeeklyRunningDataModel
 
 
 class LastRunDataViewHolder(var view: View) : BaseDataViewHolder(view) {
@@ -51,7 +52,7 @@ class LastRunDataViewHolder(var view: View) : BaseDataViewHolder(view) {
 
     }
 
-    override fun bindWeeklyProgress(model: WeeklyProgressDataViewHolder?) {
+    override fun bindWeeklyProgress(weeklyData: WeeklyRunningDataModel?) {
 
     }
 

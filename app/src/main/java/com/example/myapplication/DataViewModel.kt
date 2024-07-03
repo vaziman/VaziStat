@@ -15,7 +15,7 @@ class DataViewModel {
     private var stravaCyclingData: CyclingDataModel? = null
 
     private val listofLayouts = listOf(
-        R.layout.model_data_layout,
+        R.layout.progress_bar_run,
         R.layout.last_run,
         R.layout.last_bike
     )

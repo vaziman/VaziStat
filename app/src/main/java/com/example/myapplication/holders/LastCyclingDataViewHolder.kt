@@ -7,6 +7,7 @@ import com.example.myapplication.databinding.LastBikeBinding
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
 import com.example.myapplication.adapters.DataAdapter
+import com.example.myapplication.models.WeeklyRunningDataModel
 
 class LastCyclingDataViewHolder(view : View): BaseDataViewHolder(view) {
     val bindingClass = LastBikeBinding.bind(view)
@@ -36,14 +37,11 @@ class LastCyclingDataViewHolder(view : View): BaseDataViewHolder(view) {
             }else{
                 tvTimeBike.text = "Time: ${movingTimeMin.toInt()}:${movingTimeSec}"
             }
-//        Thread{
-//            db.getDao().insertCyclingActivities(stravaCyclingData)
-//        }.start()
 
         } else CVLastBike.visibility = View.GONE
     }
 
-    override fun bindWeeklyProgress(model: WeeklyProgressDataViewHolder?) {
+    override fun bindWeeklyProgress(weeklyData: WeeklyRunningDataModel?) {
 
     }
 }
