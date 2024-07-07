@@ -1,44 +1,41 @@
 package com.example.myapplication.holders
 
-import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
-import com.example.myapplication.databinding.ModelDataLayoutBinding
-import com.example.myapplication.interfaces.IRecyclerItems
+import com.example.myapplication.databinding.ProgressBarRunBinding
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
+import com.example.myapplication.models.WeeklyRunningDataModel
 
 class WeeklyProgressDataViewHolder(view: View) : BaseDataViewHolder(view) {
-
-    val bindingClass = ModelDataLayoutBinding.bind(view)
-    override fun bindRunning(stravaRunData: RunningDataModel?) = with(bindingClass) {
-//        tvCountOfKM.text = model.dataKilometers
-//        tvCountOfKmPercent.text = model.dataKMPercent
-
-//        val progressBar = dataViewHolder.itemView.findViewById<ProgressBar>(R.id.progress_bar_running)
-//        val dataKilometers = dataViewHolder.itemView.findViewById<TextView>(R.id.tvCountOfKM)
-//        val dataKMPercent = dataViewHolder.itemView.findViewById<TextView>(R.id.tvCountOfKmPercent)
-//
-//        val lastRun = dataViewHolder.itemView.findViewById<CardView>(R.id.CVLastRun)
+    private val bindingClass = ProgressBarRunBinding.bind(view)
 
 
-        progressBarRunning.max = 50
-        var currentProgress = 44
-        var percent = currentProgress.toFloat() / progressBarRunning.max.toFloat() * 100
-
-        ObjectAnimator.ofInt(progressBarRunning, "progress", currentProgress).start()
-
-        tvCountOfKM.text = "$currentProgress / ${progressBarRunning.max}km"
-        tvCountOfKmPercent.text = "%.1f%%".format(percent)
-
-
+    override fun bindRunning(stravaRunData: RunningDataModel?) {
     }
+
 
     override fun bindCycling(model: CyclingDataModel?) {
-
     }
 
-    override fun bindWeeklyProgress(model: WeeklyProgressDataViewHolder?) = with(bindingClass) {
+    @SuppressLint("SetTextI18n")
+    override fun bindWeeklyProgress(weeklyData: WeeklyRunningDataModel?) = with(bindingClass) {
+        progressBarRunning.max = 50
+        var currentProgress = "0.0"
+        var percent = currentProgress.toFloat() / progressBarRunning.max.toFloat() * 100
+        tvCountOfKM.text = "$currentProgress / ${progressBarRunning.max}km"
+        tvCountOfKmPercent.text = "%.1f%%".format(percent)
+        Log.d("MyLog", "Weekly Data: $weeklyData")
+
+        if (weeklyData != null) {
+            currentProgress = (weeklyData.weeklyRunningDistance.toFloat() / 1000.0).toString()
+
+            tvCountOfKM.text = "$currentProgress / ${progressBarRunning.max}km"
+            percent = currentProgress.toFloat() / progressBarRunning.max.toFloat() * 100
+            tvCountOfKmPercent.text = "%.1f%%".format(percent)
+            Log.d("MyLog", "Week Activities for view: $currentProgress")
+
+        }
     }
-
-
 }

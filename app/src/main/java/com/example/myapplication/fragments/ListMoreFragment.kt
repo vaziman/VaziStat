@@ -32,30 +32,19 @@ class ListMoreFragment : Fragment() {
         listView.adapter = adapter
         adapter.notifyDataSetChanged()
         listView.setOnItemClickListener { parent, view, position, id ->
-            if(position == 0){
+            if (position == 0) {
                 Toast.makeText(requireContext(), "Position: $position", Toast.LENGTH_SHORT).show()
             }
-
         }
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val rootView = inflater.inflate(R.layout.fragment_list_more, container, false)
         listView = rootView.findViewById(R.id.list_view_menu)  // initialization listView
         return rootView
-
-
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = ListMoreFragment()
-    }
-
 
 }

@@ -11,9 +11,5 @@
         app:itemTextColor="@color/white"
         style="@style/Theme.MyApplication"
         app:menu="@menu/bottom_menu"
-
-
-
 >
-
 </com.google.android.material.bottomnavigation.BottomNavigationView>
