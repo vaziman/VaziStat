@@ -1,11 +1,9 @@
 package com.example.myapplication
 
-import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.myapplication.constants.Keys
-import com.example.myapplication.fragments.HomeFragment
 import com.example.myapplication.interfaces.IStravaLoader
 import com.example.myapplication.models.*
 import org.json.JSONArray
@@ -47,7 +45,7 @@ class RequestStravaData(private val listener: IStravaLoader) {
                 val accessToken = stringResponse.getString("access_token")
                 callback.invoke(accessToken)
             },
-            { error ->
+            { _ ->
                 callback.invoke(null)
             })
         queue.add(stringRequest)
@@ -94,8 +92,6 @@ class RequestStravaData(private val listener: IStravaLoader) {
                 val elevHigh = mainObject.getString("elev_high")
                 val elevLow = mainObject.getString("elev_low")
                 val idOfActivity = mainObject.getString("id")
-//                val caloriesBurned = mainObject.getString("calories")
-                // val caloriesBurned = mainObject.getString("calories")
 
 
                 val parsedDataModel = RunningDataModel(
@@ -142,7 +138,6 @@ class RequestStravaData(private val listener: IStravaLoader) {
                 val elevHigh = mainObject.getString("elev_high")
                 val elevLow = mainObject.getString("elev_low")
                 val idOfActivity = mainObject.getString("id")
-//                val caloriesBurned = mainObject.getString("calories")
 
 
                 val parsedDataModel = CyclingDataModel(
@@ -163,8 +158,6 @@ class RequestStravaData(private val listener: IStravaLoader) {
                     elevLow = elevLow,
                     idOfActivity = idOfActivity
                 )
-//                homeFragment.initCyclingEntityVariable(parsedDataModel.toCyclingEntity())
-
                 stravaDataModel.cyclingDataModel = parsedDataModel
                 break
             }

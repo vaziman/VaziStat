@@ -2,7 +2,6 @@ package com.example.myapplication.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.CollectWeekActivities
 import com.example.myapplication.RequestStravaData
 import com.example.myapplication.adapters.DataAdapter
-import com.example.myapplication.database.CyclingEntity
 import com.example.myapplication.database.MainDB
-import com.example.myapplication.database.RunningEntity
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.interfaces.IStravaLoader
 import com.example.myapplication.models.StravaDataModel
@@ -23,20 +20,10 @@ import com.example.myapplication.models.toRunningEntity
 import kotlinx.coroutines.*
 
 
-class HomeFragment: Fragment(), IStravaLoader {
+class HomeFragment : Fragment(), IStravaLoader {
     private lateinit var bindingClass: FragmentHomeBinding
     private val adapter = DataAdapter()
-    lateinit var stravaRunDataEntity: RunningEntity
-    lateinit var stravaCyclingDataEntity: CyclingEntity
-    val stravaDataModel = StravaDataModel()
-    //var weekRunningDistance: StravaDataModel? = null
 
-
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +32,8 @@ class HomeFragment: Fragment(), IStravaLoader {
         init()
         return bindingClass.root
     }
-    private fun init(){
+
+    private fun init() {
         bindingClass.apply {
             rcViewMainScreen.adapter = adapter
         }
@@ -55,10 +43,8 @@ class HomeFragment: Fragment(), IStravaLoader {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val loader = RequestStravaData(this)
-//        val weeklyProgressView: View = view.findViewById(R.id.fragmentHome)
-//        RecyclerViewModel = WeeklyProgressDataViewHolder(weeklyProgressView)
 
-        loader.refreshToken {accessToken ->
+        loader.refreshToken { accessToken ->
             if (accessToken != null) {
                 loader.getActivityInfo(accessToken)
             }
@@ -67,16 +53,7 @@ class HomeFragment: Fragment(), IStravaLoader {
         lifecycleScope.launch(Dispatchers.IO) {
             val collectWeekActivities = CollectWeekActivities()
             collectWeekActivities.execute(requireContext(), this@HomeFragment)
-
-
-     //       val putWeeklyData = WeeklyRunningDataModel(
-     //           weeklyRunningDistance = weekRunningDistance.toString()
-    //        )
- //           stravaDataModel.weeklyProgressDataModel = putWeeklyData
-   //         Log.d("MyLog", "weekRunningDistance: $putWeeklyData")
-
         }
-//        weekRunningDistance?.let { RecyclerViewModel.weekRunningDistance =  weekRunningDistance}
     }
 
     override fun getCurrentContext(): Context {
@@ -84,41 +61,35 @@ class HomeFragment: Fragment(), IStravaLoader {
     }
 
 
-
     override fun onStravaDataReady(data: StravaDataModel) {
         adapter.setStravaData(data)
         lifecycleScope.launch(Dispatchers.IO) {
-            while(!isAdded){
+            while (!isAdded) {
                 delay(100)
-                }
+            }
             val context = getCurrentContext()
             val db = MainDB.getDb(context)
             if (data.runningDataModel != null) {
                 val dataRun = data.runningDataModel
                 val toRunningEntity = dataRun!!.toRunningEntity()
 
-                try{
+                try {
                     db.getDao().insertRunningActivities(toRunningEntity)
-                }catch(e:Exception){}
+                } catch (_: Exception) {
+                }
 
             }
-            if(data.cyclingDataModel != null){
+            if (data.cyclingDataModel != null) {
                 val dataCycling = data.cyclingDataModel
                 val toCyclingEntity = dataCycling!!.toCyclingEntity()
 
-                try{
+                try {
                     db.getDao().insertCyclingActivities(toCyclingEntity)
-                }catch (e:Exception){}
+                } catch (_: Exception) {
+                }
 
             }
         }
-    }
-
-    fun initRunEntityVariable(data: RunningEntity){
-        stravaRunDataEntity = data
-    }
-    fun initCyclingEntityVariable(data: CyclingEntity){
-        stravaCyclingDataEntity = data
     }
 
     fun onWeeklyRunningDataReady(weeklyRunningDataModel: WeeklyRunningDataModel) {

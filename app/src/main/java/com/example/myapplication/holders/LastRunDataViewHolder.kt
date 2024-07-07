@@ -1,24 +1,20 @@
 package com.example.myapplication.holders
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.view.View
-
 import com.example.myapplication.databinding.LastRunBinding
-import com.example.myapplication.interfaces.IStravaLoader
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
-import com.example.myapplication.models.StravaDataModel
 import com.example.myapplication.models.WeeklyRunningDataModel
 
 
-class LastRunDataViewHolder(var view: View) : BaseDataViewHolder(view) {
+class LastRunDataViewHolder(view: View) : BaseDataViewHolder(view) {
 
-    val bindingClass = LastRunBinding.bind(view)
-//    val context = MainActivity().getCurrentContext()
-//    val db = MainDB.getDb(context)
+    private val bindingClass = LastRunBinding.bind(view)
 
+    @SuppressLint("SetTextI18n")
     override fun bindRunning(stravaRunData: RunningDataModel?) = with(bindingClass) {
-        if(stravaRunData != null) {
+        if (stravaRunData != null) {
 
             val km = stravaRunData.distance.toFloat() / 1000.0
             val formattedKilometers = String.format("%.2f", km)
@@ -30,17 +26,12 @@ class LastRunDataViewHolder(var view: View) : BaseDataViewHolder(view) {
             tvNameOfLastRun.text = stravaRunData.name
             tvTimeRun.text = "Time: ${stravaRunData.movingTime.toInt() / 60}:${stravaRunData.movingTime.toInt() % 60}"
             tvDistanceRun.text = "${formattedKilometers} KM"
-            if (peaceSec < 10){
+            if (peaceSec < 10) {
                 tvPeaceRun.text = "Peace: ${((stravaRunData.movingTime.toFloat() / 60) / km).toInt()}:0$peaceSec"
-            }else {
+            } else {
                 tvPeaceRun.text = "Peace: ${((stravaRunData.movingTime.toFloat() / 60) / km).toInt()}:$peaceSec"
             }
-
-//            Thread{
-//                db.getDao().insertRunningActivities(stravaRunData) // insert running data to dataBase
-//            }.start()
-        }
-        else {
+        } else {
             CLLastRun.visibility = View.GONE
         }
 
@@ -48,7 +39,7 @@ class LastRunDataViewHolder(var view: View) : BaseDataViewHolder(view) {
     }
 
 
-    override fun bindCycling(model: CyclingDataModel?)= with(bindingClass){
+    override fun bindCycling(model: CyclingDataModel?) = with(bindingClass) {
 
     }
 

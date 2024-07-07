@@ -2,12 +2,10 @@ package com.example.myapplication.adapters
 
 import android.content.Context
 import android.view.ViewGroup
-import androidx.compose.animation.defaultDecayAnimationSpec
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.DataViewModel
 import com.example.myapplication.R
 import com.example.myapplication.holders.BaseDataViewHolder
-import com.example.myapplication.holders.WeeklyProgressDataViewHolder
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
 import com.example.myapplication.models.StravaDataModel
@@ -37,7 +35,6 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
             2 -> R.layout.last_bike
             else -> R.layout.progress_bar_run
         }
-//        return listLayouts[position]
     }
 
     override fun getItemCount(): Int {
@@ -45,7 +42,6 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
             return 0
         }
         return listofLayouts.size
-//        return dataViewHolder.itemCount()
     }
 
 
@@ -61,7 +57,6 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
         val stravaDataModel = data
         stravaRunData = stravaDataModel.runningDataModel
         stravaCyclingData = stravaDataModel.cyclingDataModel
-//        weeklyProgressData = stravaDataModel.weeklyProgressDataModel
         notifyDataSetChanged()
     }
 
@@ -70,7 +65,6 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
     }
 
     fun setWeeklyRunData(data: WeeklyRunningDataModel){
-//        val stravaDataModel = data
         weeklyProgressData = data
         notifyDataSetChanged()
     }

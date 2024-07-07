@@ -8,11 +8,6 @@ import com.example.myapplication.database.CyclingEntity
 import com.example.myapplication.database.RunningEntity
 import kotlinx.coroutines.flow.Flow
 
-import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.temporal.WeekFields
-import java.util.Locale
-
 @Dao
 interface IDaoRoom {
     @Insert

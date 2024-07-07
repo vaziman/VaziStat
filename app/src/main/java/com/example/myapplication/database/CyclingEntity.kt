@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.myapplication.MainActivity
 
 @Entity(tableName = "cyclingTracker", indices = [Index(value = ["idOfActivity"], unique = true)])
 data class CyclingEntity(
@@ -16,7 +15,6 @@ data class CyclingEntity(
     val distance: String,
     @ColumnInfo(name = "movingTime")
     val movingTime: String,
-//    @ColumnInfo(name = "type")
     val type: String,
     @ColumnInfo(name = "avgSpeed")
     val avgSpeed: String,

@@ -1,12 +1,9 @@
 package com.example.myapplication.holders
 
-import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.interfaces.IRecyclerItems
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
-import com.example.myapplication.models.StravaDataModel
 import com.example.myapplication.models.WeeklyRunningDataModel
 
 

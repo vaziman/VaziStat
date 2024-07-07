@@ -24,8 +24,7 @@
                 android:text="Name"
                 app:layout_constraintStart_toEndOf="@id/item_runner"
                 android:layout_marginStart="8dp"
-
-        />
+                tools:ignore="MissingConstraints"/>
 
         <ImageView
                 android:id="@+id/item_runner"
@@ -33,7 +32,6 @@
                 android:layout_height="50dp"
                 android:src="@drawable/run"
                 app:layout_constraintStart_toStartOf="parent"
-
                 app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
@@ -46,8 +44,8 @@
                 android:textStyle="bold"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="25dp"
-        app:layout_constraintStart_toStartOf="@id/tvPeaceRun"/>
+                android:layout_marginEnd="25dp"
+                app:layout_constraintStart_toStartOf="@id/tvPeaceRun"/>
 
 
         <TextView
@@ -57,7 +55,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTimeRun"
                 android:text="Peace: 00:00"
-
                 android:textStyle="bold"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"

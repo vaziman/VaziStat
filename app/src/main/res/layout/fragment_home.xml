@@ -19,8 +19,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/progress_bar_run"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
-
-
     </androidx.recyclerview.widget.RecyclerView>
 
     <include layout="@layout/toolbar_main"/>

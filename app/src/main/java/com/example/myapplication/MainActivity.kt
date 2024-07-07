@@ -1,14 +1,11 @@
 package com.example.myapplication
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.myapplication.adapters.DataAdapter
-
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.fragments.HomeFragment
 import com.example.myapplication.fragments.ListMoreFragment
@@ -17,8 +14,7 @@ import com.example.myapplication.models.StravaDataModel
 
 
 class MainActivity : AppCompatActivity(), IStravaLoader {
-    lateinit var bindingClass: ActivityMainBinding
-    private var activityResultLauncher: ActivityResultLauncher<Intent>? = null
+    private lateinit var bindingClass: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
