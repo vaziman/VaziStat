@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -59,6 +60,7 @@ class RequestStravaData(private val listener: IStravaLoader) {
         val stringRequest = StringRequest(Request.Method.GET, url,
             { response ->
                 val data = parseDataFromStrava(response)
+                Log.d("MyLog", "getActivityInfo runs")
                 listener.onStravaDataReady(data)
 
             }, {

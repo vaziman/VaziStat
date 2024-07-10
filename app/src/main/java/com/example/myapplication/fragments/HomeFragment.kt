@@ -2,12 +2,15 @@ package com.example.myapplication.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.work.*
 import com.example.myapplication.CollectWeekActivities
+import com.example.myapplication.DataFetchWorker
 import com.example.myapplication.RequestStravaData
 import com.example.myapplication.adapters.DataAdapter
 import com.example.myapplication.database.MainDB
@@ -18,11 +21,15 @@ import com.example.myapplication.models.WeeklyRunningDataModel
 import com.example.myapplication.models.toCyclingEntity
 import com.example.myapplication.models.toRunningEntity
 import kotlinx.coroutines.*
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import java.util.concurrent.TimeUnit
 
 
 class HomeFragment : Fragment(), IStravaLoader {
     private lateinit var bindingClass: FragmentHomeBinding
     private val adapter = DataAdapter()
+    private val loader = RequestStravaData(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,18 +49,24 @@ class HomeFragment : Fragment(), IStravaLoader {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val loader = RequestStravaData(this)
 
-        loader.refreshToken { accessToken ->
-            if (accessToken != null) {
-                loader.getActivityInfo(accessToken)
-            }
-        }
+
+        refreshStravaToken()
 
         lifecycleScope.launch(Dispatchers.IO) {
             val collectWeekActivities = CollectWeekActivities()
             collectWeekActivities.execute(requireContext(), this@HomeFragment)
         }
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val periodicWorkRequest = PeriodicWorkRequest
+            .Builder(DataFetchWorker::class.java, 15, TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(requireContext()).enqueue(periodicWorkRequest)
     }
 
     override fun getCurrentContext(): Context {
@@ -63,6 +76,7 @@ class HomeFragment : Fragment(), IStravaLoader {
 
     override fun onStravaDataReady(data: StravaDataModel) {
         adapter.setStravaData(data)
+        Log.d("MyLog", "Saving data to DB")
         lifecycleScope.launch(Dispatchers.IO) {
             while (!isAdded) {
                 delay(100)
@@ -87,13 +101,21 @@ class HomeFragment : Fragment(), IStravaLoader {
                     db.getDao().insertCyclingActivities(toCyclingEntity)
                 } catch (_: Exception) {
                 }
-
             }
         }
     }
 
     fun onWeeklyRunningDataReady(weeklyRunningDataModel: WeeklyRunningDataModel) {
         adapter.setWeeklyRunData(weeklyRunningDataModel)
+    }
+
+    fun refreshStravaToken(){
+        loader.refreshToken { accessToken ->
+            if (accessToken != null) {
+                Log.d("MyLog", "refreshStravaToken runs")
+                loader.getActivityInfo(accessToken)
+            }
+        }
     }
 
 

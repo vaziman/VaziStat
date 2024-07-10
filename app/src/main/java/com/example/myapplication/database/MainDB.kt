@@ -11,9 +11,7 @@ abstract class MainDB: RoomDatabase(){
 
     abstract fun getDao(): IDaoRoom
 
-
     companion object{
-
         @Volatile
         private var INSTANCE: MainDB? = null
 
