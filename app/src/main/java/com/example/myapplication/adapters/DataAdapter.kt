@@ -1,5 +1,6 @@
 package com.example.myapplication.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -53,6 +54,7 @@ class DataAdapter() : RecyclerView.Adapter<BaseDataViewHolder>() {
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setStravaData(data: StravaDataModel) {
         val stravaDataModel = data
         stravaRunData = stravaDataModel.runningDataModel
