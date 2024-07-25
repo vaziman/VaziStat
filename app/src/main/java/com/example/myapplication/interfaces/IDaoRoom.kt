@@ -26,6 +26,9 @@ interface IDaoRoom {
     """)
     fun getActivitiesForCurrentWeek(startDate: String, endDate: String): Flow<List<RunningEntity>>
 
+    @Query("SELECT * FROM cyclingTracker ORDER BY id DESC LIMIT 1")
+    fun getLastCyclingActivity(): CyclingEntity?
+
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertIfNotExistCycling(entity: CyclingEntity)

@@ -1,12 +1,21 @@
 package com.example.myapplication.holders
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.myapplication.database.MainDB
 import com.example.myapplication.databinding.LastBikeBinding
+import com.example.myapplication.interfaces.IStravaLoader
 import com.example.myapplication.models.CyclingDataModel
 import com.example.myapplication.models.RunningDataModel
+import com.example.myapplication.models.StravaDataModel
 
 import com.example.myapplication.models.WeeklyRunningDataModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class LastCyclingDataViewHolder(view : View): BaseDataViewHolder(view) {
     private val bindingClass = LastBikeBinding.bind(view)
@@ -38,4 +47,7 @@ class LastCyclingDataViewHolder(view : View): BaseDataViewHolder(view) {
 
     override fun bindWeeklyProgress(weeklyData: WeeklyRunningDataModel?) {
     }
+
+
+
 }

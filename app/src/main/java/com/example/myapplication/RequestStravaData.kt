@@ -6,7 +6,9 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.myapplication.constants.Keys
 import com.example.myapplication.interfaces.IStravaLoader
-import com.example.myapplication.models.*
+import com.example.myapplication.models.CyclingDataModel
+import com.example.myapplication.models.RunningDataModel
+import com.example.myapplication.models.StravaDataModel
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -70,7 +72,7 @@ class RequestStravaData(private val listener: IStravaLoader) {
 
     }
 
-    fun parseDataFromStrava(response: String): StravaDataModel {
+    private fun parseDataFromStrava(response: String): StravaDataModel {
         val jsonArray = JSONArray(response)
         val stravaDataModel = StravaDataModel()
 
@@ -80,20 +82,20 @@ class RequestStravaData(private val listener: IStravaLoader) {
             val type = mainObject.getString("type")
 
             if (type == "Run") {
-                val distance = mainObject.getString("distance")
-                val name = mainObject.getString("name")
-                val movingTime = mainObject.getString("moving_time")
-                val startDate = mainObject.getString("start_date")
-                val locationCountry = mainObject.getString("location_country")
-                val avgCadence = mainObject.getString("average_cadence")
-                val avgTemp = mainObject.getString("average_temp")
-                val hasHeartRate = mainObject.getString("has_heartrate") //Boolean
-                val avgHeartRate = mainObject.getString("average_heartrate")
-                val maxHeartRate = mainObject.getString("max_heartrate")
-                val elevGain = mainObject.getString("total_elevation_gain")
-                val elevHigh = mainObject.getString("elev_high")
-                val elevLow = mainObject.getString("elev_low")
-                val idOfActivity = mainObject.getString("id")
+                val distance = mainObject.optString("distance")
+                val name = mainObject.optString("name")
+                val movingTime = mainObject.optString("moving_time")
+                val startDate = mainObject.optString("start_date")
+                val locationCountry = mainObject.optString("location_country")
+                val avgCadence = mainObject.optString("average_cadence")
+                val avgTemp = mainObject.optString("average_temp")
+                val hasHeartRate = mainObject.optString("has_heartrate") //Boolean
+                val avgHeartRate = mainObject.optString("average_heartrate")
+                val maxHeartRate = mainObject.optString("max_heartrate")
+                val elevGain = mainObject.optString("total_elevation_gain")
+                val elevHigh = mainObject.optString("elev_high")
+                val elevLow = mainObject.optString("elev_low")
+                val idOfActivity = mainObject.optString("id")
 
 
                 val parsedDataModel = RunningDataModel(
@@ -127,18 +129,18 @@ class RequestStravaData(private val listener: IStravaLoader) {
             if (type == "Ride") {
                 val distance = mainObject.getString("distance")
                 val name = mainObject.getString("name")
-                val movingTime = mainObject.getString("moving_time")
-                val avgSpeed = mainObject.getString("average_speed")
-                val maxSpeed = mainObject.getString("max_speed")
-                val startDate = mainObject.getString("start_date")
-                val locationCountry = mainObject.getString("location_country")
-                val avgTemp = mainObject.getString("average_temp")
-                val hasHeartRate = mainObject.getString("has_heartrate") //Boolean
-                val avgHeartRate = mainObject.getString("average_heartrate")
-                val maxHeartRate = mainObject.getString("max_heartrate")
-                val elevGain = mainObject.getString("total_elevation_gain")
-                val elevHigh = mainObject.getString("elev_high")
-                val elevLow = mainObject.getString("elev_low")
+                val movingTime = mainObject.optString("moving_time")
+                val avgSpeed = mainObject.optString("average_speed")
+                val maxSpeed = mainObject.optString("max_speed")
+                val startDate = mainObject.optString("start_date")
+                val locationCountry = mainObject.optString("location_country")
+                val avgTemp = mainObject.optString("average_temp")
+                val hasHeartRate = mainObject.optString("has_heartrate") //Boolean
+                val avgHeartRate = mainObject.optString("average_heartrate")
+                val maxHeartRate = mainObject.optString("max_heartrate")
+                val elevGain = mainObject.optString("total_elevation_gain")
+                val elevHigh = mainObject.optString("elev_high")
+                val elevLow = mainObject.optString("elev_low")
                 val idOfActivity = mainObject.getString("id")
 
 
@@ -161,6 +163,7 @@ class RequestStravaData(private val listener: IStravaLoader) {
                     idOfActivity = idOfActivity
                 )
                 stravaDataModel.cyclingDataModel = parsedDataModel
+
                 break
             }
         }

@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), IStravaLoader {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbarMain)
         setSupportActionBar(toolbar)  // activation return button of toolbar
-        // setSupportActionBar(findViewById(R.id.toolbarMain))
+
 
 
 
@@ -41,9 +41,6 @@ class MainActivity : AppCompatActivity(), IStravaLoader {
             }
             true
         }
-            //  requestStravaData.getStravaAutorisationCode()
-//              requestStravaData.refreshToken()
-
     }
 
     private fun replaceFragment(fragment: Fragment) {

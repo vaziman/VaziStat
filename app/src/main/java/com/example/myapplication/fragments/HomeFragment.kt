@@ -31,6 +31,7 @@ class HomeFragment : Fragment(), IStravaLoader {
     private val adapter = DataAdapter()
     private val loader = RequestStravaData(this)
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,15 +59,6 @@ class HomeFragment : Fragment(), IStravaLoader {
             collectWeekActivities.execute(requireContext(), this@HomeFragment)
         }
 
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
-        val periodicWorkRequest = PeriodicWorkRequest
-            .Builder(DataFetchWorker::class.java, 15, TimeUnit.MINUTES)
-            .setConstraints(constraints)
-            .build()
-
-        WorkManager.getInstance(requireContext()).enqueue(periodicWorkRequest)
     }
 
     override fun getCurrentContext(): Context {
@@ -76,7 +68,7 @@ class HomeFragment : Fragment(), IStravaLoader {
 
     override fun onStravaDataReady(data: StravaDataModel) {
         adapter.setStravaData(data)
-        Log.d("MyLog", "Saving data to DB")
+//        Log.d("MyLog", "Saving data to DB")
         lifecycleScope.launch(Dispatchers.IO) {
             while (!isAdded) {
                 delay(100)
@@ -96,7 +88,6 @@ class HomeFragment : Fragment(), IStravaLoader {
             if (data.cyclingDataModel != null) {
                 val dataCycling = data.cyclingDataModel
                 val toCyclingEntity = dataCycling!!.toCyclingEntity()
-
                 try {
                     db.getDao().insertCyclingActivities(toCyclingEntity)
                 } catch (_: Exception) {
@@ -116,6 +107,22 @@ class HomeFragment : Fragment(), IStravaLoader {
                 loader.getActivityInfo(accessToken)
             }
         }
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+            val periodicWorkRequest = PeriodicWorkRequest
+                .Builder(DataFetchWorker::class.java, 15, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .build()
+
+            WorkManager.getInstance(requireContext()).enqueue(periodicWorkRequest)
+
     }
 
 
